@@ -9,7 +9,6 @@
     </style>
 
 
-</resources>
     <style name="editText_style">
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/edittext_background</item>
