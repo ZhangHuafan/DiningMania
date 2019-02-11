@@ -9,11 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Review"></activity>
+        <activity android:name=".LegalAndPrivacy"></activity>
+        <activity android:name=".Feedback" />
+        <activity android:name=".Settings" />
+        <activity android:name=".GiftReedem" />
+        <activity android:name=".Notification" />
+        <activity android:name=".Transaction" />
+        <activity android:name=".SelectFood" />
+        <activity android:name=".ReviewList" />
+        <activity android:name=".User" />
+        <activity android:name=".StartActivity" />
+        <activity android:name=".Signup" />
+        <activity android:name=".Review" />
         <activity android:name=".Scan" />
-        <activity android:name=".Menu" />
         <activity android:name=".Login" />
-        <activity android:name=".EmptyMainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
