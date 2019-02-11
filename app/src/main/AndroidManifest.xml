@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="RVRC.GEQ1917.G34.android.diningmania">
+    package="com.example.diningmania_1">
 
     <application
         android:allowBackup="true"
@@ -9,20 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LegalAndPrivacy"></activity>
-        <activity android:name=".Feedback" />
-        <activity android:name=".Settings" />
-        <activity android:name=".GiftReedem" />
-        <activity android:name=".Notification" />
-        <activity android:name=".Transaction" />
-        <activity android:name=".SelectFood" />
-        <activity android:name=".ReviewList" />
-        <activity android:name=".User" />
-        <activity android:name=".StartActivity" />
-        <activity android:name=".Signup" />
-        <activity android:name=".Review" />
-        <activity android:name=".Scan" />
-        <activity android:name=".Login" />
+        <activity
+            android:name=".homepageNavigation"
+            android:label="@string/title_activity_homepage_navigation"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".homePage"
+            android:label="@string/title_activity_home_page"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
