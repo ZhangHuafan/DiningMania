@@ -10,11 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+
 import static RVRC.GEQ1917.G34.android.diningmania.Login.filename;
 
 
@@ -38,13 +37,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button b_scan;
     private Button b_review;
 
-    private TextView tv_usedCredit;
-    private TextView tv_remainingCredit;
+    private TextView tv_bUsedCredit;
+    private TextView tv_bLeftCredit;
+    private TextView tv_dUsedCredit;
+    private TextView tv_dLeftCredit;
     private TextView tv_usedPoint;
-    private TextView tv_remainingPoint;
+    private TextView tv_leftPoint;
     private ListView lv_transactionList;
 
-    private static User user;
+    protected static User user;
     private static FirebaseAuth mAuth;
     private static DatabaseReference mDatabase;
     private static DatabaseReference userRef;
@@ -60,11 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         (b_selectFodd = findViewById(R.id.main_b_selectFood)).setOnClickListener(this);
         (b_scan = findViewById(R.id.main_b_scan)).setOnClickListener(this);
         (b_review = findViewById(R.id.main_b_review)).setOnClickListener(this);
-        tv_usedCredit = headerView.findViewById(R.id.nav_tv_usedCredit);
-        tv_remainingCredit = headerView.findViewById(R.id.nav_tv_RemainingCredit);
+        tv_bUsedCredit = headerView.findViewById(R.id.nav_tv_bUsedCredit);
+        tv_bLeftCredit = headerView.findViewById(R.id.nav_tv_bLeftCredit);
+        tv_dUsedCredit = headerView.findViewById(R.id.nav_tv_dUsedCredit);
+        tv_dLeftCredit = headerView.findViewById(R.id.nav_tv_dLeftCredit);
         tv_usedPoint = headerView.findViewById(R.id.nav_tv_usedPoint);
-        tv_remainingPoint = headerView.findViewById(R.id.nav_tv_remainingPoint);
-        lv_transactionList = headerView.findViewById(R.id.transaction_lv_container);
+        tv_leftPoint = headerView.findViewById(R.id.nav_tv_leftPoint);
+        //lv_transactionList = headerView.findViewById(R.id.transaction_lv_container);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -89,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userRef.child(currUserId).setValue(user);
                 }
                 user = dataSnapshot.child(currUserId).getValue(User.class);
-                Log.i(TAG, "Used credit"+user.getUsedCredit());
+                Log.d(TAG, "Got the user from Firebase database");
                 updateUI();
             }
             @Override
@@ -110,20 +113,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
-
     }
 
     private void updateUI(){
         //ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
         //        R.layout.activity_show_transaction,user.getTransactions());
-        tv_usedCredit.setText(Integer.toString(user.getUsedCredit()));
-        tv_remainingCredit.setText(Integer.toString(user.getRemainingCredit()));
+        tv_bUsedCredit.setText(Integer.toString(user.getBUsedCredit()));
+        tv_bLeftCredit.setText(Integer.toString(user.getBLeftCredit()));
+        tv_dUsedCredit.setText(Integer.toString(user.getDUsedCredit()));
+        tv_dLeftCredit.setText(Integer.toString(user.getDLeftCredit()));
         tv_usedPoint.setText(Integer.toString(user.getUsedPoint()));
-        tv_remainingPoint.setText(Integer.toString(user.getRemainingPoint()));
+        tv_leftPoint.setText(Integer.toString(user.getLeftPoint()));
         //lv_transactionList.setAdapter(adapter);
     }
-
-
 
     @Override
     public void onClick(View v){

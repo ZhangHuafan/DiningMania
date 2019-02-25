@@ -1,5 +1,7 @@
 package RVRC.GEQ1917.G34.android.diningmania;
 
+import android.widget.Toast;
+
 import java.util.List;
 import java.util.Stack;
 
@@ -15,81 +17,81 @@ public class User {
 
     private static final int TOTAL_CREDIT = 100;
 
-    private int usedCredit;
-    private int remainingCredit;
+    private int bUsedCredit;
+    private int bLeftCredit;
+    private int dUsedCredit;
+    private int dLeftCredit;
     private int usedPoint;
-    private int remainingPoint;
+    private int leftPoint;
     private List<String> transactions;
 
     public User(){
-        usedCredit = 0;
-        remainingCredit = TOTAL_CREDIT;
-        usedPoint = 0;
-        remainingPoint = 0;
+        bLeftCredit = TOTAL_CREDIT;
+        dLeftCredit = TOTAL_CREDIT;
         transactions = new Stack<>();
     }
 
-    public int getUsedCredit() {
-        return usedCredit;
+    public int getBUsedCredit() {
+        return bUsedCredit;
     }
-
-    public int getRemainingCredit() {
-        return remainingCredit;
+    public int getBLeftCredit() {
+        return bLeftCredit;
     }
-
+    public int getDUsedCredit() {
+        return dUsedCredit;
+    }
+    public int getDLeftCredit() {
+        return dLeftCredit;
+    }
     public int getUsedPoint() {
         return usedPoint;
     }
-
-    public int getRemainingPoint() {
-        return remainingPoint;
+    public int getLeftPoint() {
+        return leftPoint;
     }
-
     public List<String> getTransactions() {
         return transactions;
     }
 
-    public void setUsedCredit(int usedCredit) {
-        this.usedCredit = usedCredit;
+    public void setBUsedCredit(int bUsedCredit) {
+        this.bUsedCredit = bUsedCredit;
     }
-
-    public void setRemainingCredit(int remainingCredit) {
-        this.remainingCredit = remainingCredit;
+    public void setBLeftCredit(int bLeftCredit) {
+        this.bLeftCredit = bLeftCredit;
     }
-
+    public void setDUsedCredit(int dUsedCredit) {
+        this.dUsedCredit = dUsedCredit;
+    }
+    public void setDLeftCredit(int dLeftCredit) {
+        this.dLeftCredit = dLeftCredit;
+    }
     public void setUsedPoint(int usedPoint) {
         this.usedPoint = usedPoint;
     }
-
-    public void setRemainingPoint(int remainingPoint) {
-        this.remainingPoint = remainingPoint;
+    public void setLeftPoint(int leftPoint) {
+        this.leftPoint = leftPoint;
     }
-
     public void setTransactions(List<String> transactions) {
         this.transactions = transactions;
     }
 
+    public void addTransaction(TransactionHistory transaction){
+        transactions.add(transaction.toString());
+        if (transaction instanceof BreakfastTransaction){
+            bUsedCredit++;
+            bLeftCredit--;
+        } else {
+            dUsedCredit++;
+            dLeftCredit--;
+        }
+    }
     public void addTransaction(TransactionHistory transaction, int point){
         transactions.add(transaction.toString());
-        if(transaction instanceof PointTransaction){
-            usedPoint += point;
-            remainingPoint -= point;
-
-        }else {
-            usedCredit++;
-            remainingCredit--;
-
-        }
-        int totalTransactions = transactions.size();
-
+        usedPoint += point;
+        leftPoint -= point;
     }
 
     public void earnPoint(int point) {
-        remainingPoint += point;
+        leftPoint += point;
     }
-
-    public void usePoint(int point){
-
-    }
-
 }

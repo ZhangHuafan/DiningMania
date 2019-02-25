@@ -5,8 +5,8 @@ import java.util.Date;
 public class PointTransaction extends TransactionHistory{
     private static int total;
 
-    public PointTransaction(String type, String name, Date date) {
-        super(type, name, date);
+    public PointTransaction(String name, Date date) {
+        super(name, date);
         total++;
     }
 

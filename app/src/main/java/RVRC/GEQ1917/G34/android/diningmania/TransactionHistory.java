@@ -4,15 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TransactionHistory{
-    protected String transactionType;
     protected String transactionName;
     protected Date date;
 
     public TransactionHistory(){
     }
 
-    public TransactionHistory(String type, String name, Date date){
-        this.transactionType = type;
+    public TransactionHistory(String name, Date date){
         this.transactionName = name;
         this.date = date;
     }
@@ -20,6 +18,6 @@ public class TransactionHistory{
     @Override
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("E, dd/MMM/yyyy      hh:mm");
-        return String.format("%s %s\n%s",transactionType,transactionName,df.format(date));
+        return String.format("%s\n%s",transactionName, df.format(date));
     }
 }

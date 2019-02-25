@@ -6,7 +6,7 @@ public class DinnerTransaction extends TransactionHistory {
     private static int total;
 
     public DinnerTransaction(String name, Date date) {
-        super("Dinner", name, date);
+        super(name, date);
         total++;
     }
 
