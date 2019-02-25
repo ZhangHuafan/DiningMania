@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="RVRC.GEQ1917.G34.android.diningmania">
 
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,13 +14,63 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/diningmanialogo" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+
+        <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity">
+        </activity>
+
+        <activity android:name=".Login">
+        </activity>
+
+        <activity android:name=".Review">
+        </activity>
+
+        <activity android:name=".Scan">
+        </activity>
+
+        <activity android:name=".SelectFood">
+        </activity>
+
+        <activity android:name=".Feedback">
+        </activity>
+
+        <activity android:name=".Settings">
+        </activity>
+
+        <activity android:name=".GiftRedeem">
+        </activity>
+
+        <activity android:name=".Notification">
+        </activity>
+
+        <activity android:name=".ShowTransaction">
+        </activity>
+
+        <activity android:name=".ReviewList">
+        </activity>
+
+        <service android:name=".FirebaseMessageService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

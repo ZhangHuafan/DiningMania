@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EmptyMainActivity">
+    tools:context=".ShowTransaction">
+
+    <ListView
+        android:id="@+id/transaction_lv_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
 
 </android.support.constraint.ConstraintLayout>
