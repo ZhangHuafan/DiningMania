@@ -3,6 +3,7 @@ package RVRC.GEQ1917.G34.android.diningmania;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 public class Receipt extends AppCompatActivity {
@@ -18,8 +19,10 @@ public class Receipt extends AppCompatActivity {
         tv_type = findViewById(R.id.receipt_tv_type);
         tv_food = findViewById(R.id.receipt_tv_food);
         tv_dateAndTime = findViewById(R.id.receipt_tv_dateAndTime);
-
         getReceipt();
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        }
     }
 
     private void getReceipt(){
