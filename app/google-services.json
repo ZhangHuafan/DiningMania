@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "82260539072",
+    "firebase_url": "https://diningmania-3b868.firebaseio.com",
+    "project_id": "diningmania-3b868",
+    "storage_bucket": "diningmania-3b868.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82260539072:android:c1552c5f66bb695a",
+        "android_client_info": {
+          "package_name": "RVRC.GEQ1917.G34.android.diningmania"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82260539072-ih2h6np30k2linmdmhfc08csm5s6oh26.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "RVRC.GEQ1917.G34.android.diningmania",
+            "certificate_hash": "1ece7c63cd993c0059f59449b9145a94b9ad90d2"
+          }
+        },
+        {
+          "client_id": "82260539072-a7v55u53srmp8l3li3bosef93tahu4qg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYBh5YjvUozqAkqLlyufm6MvwcnK52iMU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82260539072-a7v55u53srmp8l3li3bosef93tahu4qg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

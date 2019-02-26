@@ -29,7 +29,7 @@ import com.google.firebase.iid.InstanceIdResult;
 import static RVRC.GEQ1917.G34.android.diningmania.Login.filename;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class  MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String TAG = "MainActivity";
     private NavigationView navigationView;
@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     userRef.child(currUserId).setValue(user);
                 }
                 user = dataSnapshot.child(currUserId).getValue(User.class);
+                Log.i(TAG,"Got user" + user.getBLeftCredit());
                 Log.d(TAG, "Got the user from Firebase database");
                 updateUI();
             }
@@ -136,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.main_b_scan:
                 intent = new Intent(MainActivity.this, Scan.class);
+                intent.putExtra("user",user);
                 break;
             case R.id.main_b_review:
                 intent = new Intent(MainActivity.this, Review.class);

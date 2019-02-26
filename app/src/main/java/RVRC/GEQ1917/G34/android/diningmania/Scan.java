@@ -12,6 +12,9 @@ import android.widget.Toast;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.net.BCodec;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.zxing.Result;
@@ -30,6 +33,10 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
 
     private static final String TAG = "Scan";
     private ZXingScannerView scannerView;
+    private static FirebaseAuth mAuth;
+    private static DatabaseReference mDatabase;
+    private static DatabaseReference currentUserRef;
+    private static String currUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +91,19 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
     }
 
     public void updateData(String transactionName){
+        mAuth = FirebaseAuth.getInstance();
+        Log.i(TAG,"Got database reference for Users");
+        currUserId = mAuth.getCurrentUser().getUid();
+        mDatabase= FirebaseDatabase.getInstance().getReference();
+        currentUserRef = mDatabase.child("Users").child(currUserId);
+
         Date date = Calendar.getInstance().getTime();
         String type;
         String chosenFood;
         Log.i(TAG, "updateData");
+        Log.i(TAG,"Got user" + user.getBLeftCredit());
         if(transactionName.contains("Breakfast")) {
-    //        user.addTransaction(new BreakfastTransaction(transactionName, date));
+            user.addTransaction(new BreakfastTransaction(transactionName, date));
             type = "Breakfast";
             chosenFood = transactionName.substring(10);
         }else if (transactionName.contains("Dinner")) {
@@ -97,30 +111,31 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
             type = "Dinner";
             chosenFood = transactionName.substring(7);
         }else{
-  //          user.addTransaction(new PointTransaction(transactionName, date));
+            user.addTransaction(new PointTransaction(transactionName, date));
             type = "Gift";
             chosenFood = transactionName;
         }
-        updateRecords(date, chosenFood);
-        generateReceipt(date, type, chosenFood);
+        currentUserRef.setValue(user);
+        updateRecords(type, chosenFood, date);
+        generateReceipt(type, chosenFood, date);
     }
 
-    private void updateRecords(Date date, String food){
-        Log.i(TAG, "updateRecords " + date.toString() + food);
+    private void updateRecords(String type, String food, Date date){
+
         SimpleDateFormat dfDate = new SimpleDateFormat("dd_MM_yyyy");
-        SimpleDateFormat dfTime = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat dfTime = new SimpleDateFormat("HH:mm");
         String formattedDate = dfDate.format(date);
         String formattedTime = dfTime.format(date);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, String> record = new HashMap<>();
         record.put(food, formattedTime);
-        db.collection("Daily Breakfast Records").document(formattedDate).set(record,
+        db.collection(String.format("%s Records", type)).document(formattedDate).set(record,
                 SetOptions.merge());
     }
 
-    private void generateReceipt(Date date, String type, String food){
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy\nHH:mm:ss");
+    private void generateReceipt(String type, String food, Date date){
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy\nHH:mm");
         String dateAndTime = df.format(date);
         SharedPreferences sp = getSharedPreferences("receipt info", MODE_PRIVATE);
         sp.edit().putString("date", dateAndTime).apply();

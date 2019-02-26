@@ -2,6 +2,8 @@ package RVRC.GEQ1917.G34.android.diningmania;
 
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -13,7 +15,7 @@ import java.util.Stack;
  *          > breakfast; > dinner; > points
  */
 
-public class User {
+public class User implements Serializable {
 
     private static final int TOTAL_CREDIT = 100;
 
@@ -28,7 +30,7 @@ public class User {
     public User(){
         bLeftCredit = TOTAL_CREDIT;
         dLeftCredit = TOTAL_CREDIT;
-        transactions = new Stack<>();
+        transactions = new LinkedList<>();
     }
 
     public int getBUsedCredit() {
