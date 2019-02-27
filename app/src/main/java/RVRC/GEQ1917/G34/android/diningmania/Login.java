@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.regex.Pattern;
+
 public class Login extends AppCompatActivity implements View.OnClickListener{
 
     protected static final String filename = "login Status";
@@ -26,6 +28,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     protected static boolean isNewUser;
     private String emailId;
+    private String stuId;
 
     private EditText et_email;
     private EditText et_password;
@@ -57,14 +60,29 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v){
         int viewId = v.getId();
         emailId = et_email.getText().toString();
-        if(viewId == R.id.login_b_login){
-            logIn(et_password.getText().toString());
-        }else if(viewId == R.id.login_b_forgetPassword){
-            resetPassword();
+        if(!isValidEmail(emailId)){
+           Toast.makeText(this,"Please enter a correct email form!", Toast.LENGTH_LONG);
+        }else {
+            if (viewId == R.id.login_b_login) {
+                logIn(et_password.getText().toString());
+            } else if (viewId == R.id.login_b_forgetPassword) {
+                resetPassword();
+            }
         }
     }
 
-    private void logIn(String passwd) {
+    public static boolean isValidEmail(String email)
+    {
+        final String EMAIL_REGEX = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]" +
+                "+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+        Pattern pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
+        if (email == null)
+            return false;
+
+        return pattern.matcher(email).matches();
+    }
+
+    private void logIn(final String passwd) {
 
 
         mAuth.signInWithEmailAndPassword(emailId, passwd)
@@ -74,9 +92,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                         if (task.isSuccessful()) {
                             isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                             Log.d(TAG, "email logged in: " + isNewUser + " " + emailId);
-
+                            stuId = passwd;
+                            sp.edit().putString("studentId",stuId);
                             sp.edit().putBoolean(isLoggedIn,true).apply();
-                            Intent goToMainPage = new Intent(Login.this, MainActivity.class);
+                            Intent goToMainPage = new Intent(Login.this, Home.class);
                             startActivity(goToMainPage);
 
                         } else {

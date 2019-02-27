@@ -26,7 +26,7 @@ public class StartActivity extends AppCompatActivity {
         boolean loggedIn = sp.getBoolean(isLoggedIn,false);
         Log.i(TAG,Boolean.toString(loggedIn));
         if (loggedIn) {
-            intent = new Intent(this, MainActivity.class);
+            intent = new Intent(this, Home.class);
         } else {
             intent = new Intent(this, Login.class);
         }

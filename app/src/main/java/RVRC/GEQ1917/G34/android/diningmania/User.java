@@ -15,10 +15,11 @@ import java.util.Stack;
  *          > breakfast; > dinner; > points
  */
 
-public class User implements Serializable {
+public class User{
 
     private static final int TOTAL_CREDIT = 100;
 
+    private String studentId;
     private int bUsedCredit;
     private int bLeftCredit;
     private int dUsedCredit;
@@ -27,10 +28,14 @@ public class User implements Serializable {
     private int leftPoint;
     private List<String> transactions;
 
-    public User(){
-        bLeftCredit = TOTAL_CREDIT;
-        dLeftCredit = TOTAL_CREDIT;
-        transactions = new LinkedList<>();
+    public User() {
+    }
+
+    public User(String studentId){
+        this.studentId = studentId;
+        this.bLeftCredit = TOTAL_CREDIT;
+        this.dLeftCredit = TOTAL_CREDIT;
+        this.transactions = new LinkedList<>();
     }
 
     public int getBUsedCredit() {

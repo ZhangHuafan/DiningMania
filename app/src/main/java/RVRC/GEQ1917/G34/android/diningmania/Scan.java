@@ -27,7 +27,7 @@ import java.util.Map;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-import static RVRC.GEQ1917.G34.android.diningmania.MainActivity.user;
+import static RVRC.GEQ1917.G34.android.diningmania.Home.user;
 
 public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 

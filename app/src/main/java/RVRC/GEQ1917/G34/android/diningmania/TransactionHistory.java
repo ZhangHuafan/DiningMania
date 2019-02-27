@@ -17,7 +17,7 @@ public class TransactionHistory{
 
     @Override
     public String toString() {
-        SimpleDateFormat df = new SimpleDateFormat("E, dd/MMM/yyyy      hh:mm");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy (E) hh:mm");
         return String.format("%-25s %s",transactionName, df.format(date));
     }
 }

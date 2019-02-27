@@ -25,5 +25,6 @@
     <string name="background_for_login_page">Login Background</string>
     <string name="used_point">Used Point</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
 
 </resources>
