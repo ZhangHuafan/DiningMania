@@ -1,10 +1,15 @@
 package RVRC.GEQ1917.G34.android.diningmania;
 
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 /**
@@ -17,7 +22,7 @@ import java.util.Stack;
 
 public class User{
 
-    private static final int TOTAL_CREDIT = 100;
+    private static final int TOTAL_CREDIT = 6;
 
     private String studentId;
     private int bUsedCredit;
@@ -26,7 +31,9 @@ public class User{
     private int dLeftCredit;
     private int usedPoint;
     private int leftPoint;
-    private List<String> transactions;
+    private List<String> transactions = new LinkedList<>();
+    private Map<String, String> breakfastIndications = new HashMap<>();
+    private Map<String, String> dinnerIndications = new HashMap<>();;
 
     public User() {
     }
@@ -35,7 +42,6 @@ public class User{
         this.studentId = studentId;
         this.bLeftCredit = TOTAL_CREDIT;
         this.dLeftCredit = TOTAL_CREDIT;
-        this.transactions = new LinkedList<>();
     }
 
     public int getBUsedCredit() {
@@ -59,6 +65,13 @@ public class User{
     public List<String> getTransactions() {
         return transactions;
     }
+    public Map<String, String> getBreakfastIndications() {
+        Log.i("User Class", "Return " + breakfastIndications);
+        return breakfastIndications;
+    }
+    public Map<String, String> getDinnerIndications() {
+        return dinnerIndications;
+    }
 
     public void setBUsedCredit(int bUsedCredit) {
         this.bUsedCredit = bUsedCredit;
@@ -81,6 +94,12 @@ public class User{
     public void setTransactions(List<String> transactions) {
         this.transactions = transactions;
     }
+    public void setBreakfastIndications(Map<String, String> breakfastIndications) {
+        this.breakfastIndications = breakfastIndications;
+    }
+    public void setDinnerIndications(Map<String, String> dinnerIndications) {
+        this.dinnerIndications = dinnerIndications;
+    }
 
     public void addTransaction(TransactionHistory transaction){
         transactions.add(transaction.toString());
@@ -97,8 +116,14 @@ public class User{
         usedPoint += point;
         leftPoint -= point;
     }
-
     public void earnPoint(int point) {
         leftPoint += point;
+    }
+
+    public void addBreakfastIndication(String date, String indication) {
+        breakfastIndications.put(date,indication);
+    }
+    public void addDinnerIndication(String date, String indication) {
+        dinnerIndications.put(date,indication);
     }
 }
