@@ -36,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import ViewHolder.MenuHolder;
@@ -55,12 +56,14 @@ public class Home extends AppCompatActivity
     private Button b_calendar;
     private RecyclerView recyclerMenu;
     private RecyclerView.LayoutManager layoutManager;
+    private Date chosenDate;
+    private DatabaseHelper mySQDatabase;
 
     protected static User user;
     private static FirebaseAuth mAuth;
     private static DatabaseReference mDatabase;
     private static DatabaseReference userRef;
-    private static DatabaseReference breakfastChoice;
+    private static DatabaseReference dinnerChoice;
     private static String currUserId;
     private static String studentId;
     SharedPreferences sp;
@@ -97,16 +100,17 @@ public class Home extends AppCompatActivity
             }
         } );
         //lv_transactionList = headerView.findViewById(R.id.transaction_lv_container);
-
-
+        //default date: today
+        chosenDate = Calendar.getInstance().getTime();
+        mySQDatabase = new DatabaseHelper(this);
         mAuth = FirebaseAuth.getInstance();
         Log.i(TAG,"Got database reference for Users");
         currUserId = mAuth.getCurrentUser().getUid();
         mDatabase= FirebaseDatabase.getInstance().getReference();
         userRef = mDatabase.child("Users");
         sp = getSharedPreferences(filename, Context.MODE_PRIVATE);
-        breakfastChoice = mDatabase.child("Breakfast Choice");
-        Log.d(TAG,"Got breakfast reference" + breakfastChoice.toString());
+        dinnerChoice = mDatabase.child("Dinner Choice");
+        Log.d(TAG,"Got Dinner reference" + dinnerChoice.toString());
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -133,24 +137,28 @@ public class Home extends AppCompatActivity
         recyclerMenu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerMenu.setLayoutManager(layoutManager);
-        loadMenu("27_02_2019");
+        loadMenu(formatDate(chosenDate));
+    }
+
+    private String formatDate(Date dateObj) {
+        SimpleDateFormat dfDate = new SimpleDateFormat("dd_MM_yyyy");
+         return dfDate.format(chosenDate);
     }
 
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH,month);
-        calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-        SimpleDateFormat dfDate = new SimpleDateFormat("dd_MM_yyyy");
-        String date = dfDate.format(calendar.getTime());
-        loadMenu(date);
+        Calendar chosenCalendar = Calendar.getInstance();
+        chosenCalendar.set(Calendar.YEAR, year);
+        chosenCalendar.set(Calendar.MONTH,month);
+        chosenCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+        chosenDate = chosenCalendar.getTime();
+        loadMenu(formatDate(chosenDate));
     }
 
     private void loadMenu(final String date) {
         FirebaseRecyclerAdapter<FoodChoice, MenuHolder> adapter = new FirebaseRecyclerAdapter<FoodChoice, MenuHolder>
-                (FoodChoice.class, R.layout.menu_items, MenuHolder.class, breakfastChoice) {
+                (FoodChoice.class, R.layout.menu_items, MenuHolder.class, dinnerChoice) {
             @Override
             protected void populateViewHolder(MenuHolder viewHolder, FoodChoice model, int position) {
                 viewHolder.tv_choice.setText(model.getChoice());
@@ -162,18 +170,32 @@ public class Home extends AppCompatActivity
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        Map<String, String> brIndications = user.getBreakfastIndications();
-                        if ( !brIndications.isEmpty() && brIndications.containsKey(date)) {
-                            Toast.makeText(Home.this, "You have already chosen the meal ;)",
-                                    Toast.LENGTH_LONG).show();
-                        } else {
+                        if (canAcceptChange()) {
                             showConfirmationDialog(date, clickItem.getChoice());
+                        } else {
+                            showInfoDialog();
                         }
                     }
                 });
             }
         };
         recyclerMenu.setAdapter(adapter);
+    }
+
+    private boolean canAcceptChange() {
+        Calendar dueDate = Calendar.getInstance();
+        dueDate.add(Calendar.HOUR_OF_DAY, +23);
+        Log.d(TAG, dueDate.getTime().toString() + " " + chosenDate);
+        return chosenDate.after(dueDate.getTime());
+    }
+
+    private void addLocalDate(String date, String choice) {
+        boolean insertDate = mySQDatabase.addData(date, choice);
+        if(insertDate) {
+            makeToast("Successfully record your choice!");
+        } else {
+            makeToast("Something went wrong. Please try again.");
+        }
     }
 
     public void showConfirmationDialog(final String date, final String choice) {
@@ -185,16 +207,33 @@ public class Home extends AppCompatActivity
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        user.addBreakfastIndication(date, choice);
+                        user.addDinnerIndication(date, choice);
+                        addLocalDate(date, choice);
                     }
                 });
         builder.setNegativeButton(android.R.string.cancel,
                 new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
 
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void showInfoDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+        builder.setCancelable(true);
+        builder.setTitle("Indicate your choice earlier =)");
+        builder.setMessage("\nCaterers have already begun to prepare food." +
+                "You are not able to select food for current date.");
+        builder.setNeutralButton("Okay",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
@@ -211,7 +250,6 @@ public class Home extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
@@ -238,21 +276,21 @@ public class Home extends AppCompatActivity
 
         switch (item.getItemId()){
             case R.id.nav_scan:
-                intent = new Intent(this,Scan.class);
+                intent = new Intent(this, Scan.class);
             case R.id.nav_transaction:
-                intent = new Intent(this,ShowTransaction.class);
+                intent = new Intent(this, ShowTransaction.class);
                 break;
             case R.id.nav_notification:
-                intent = new Intent(this,Notification.class);
+                intent = new Intent(this, Notification.class);
                 break;
-            case R.id.nav_giftRedeem:
-                intent = new Intent(this,GiftRedeem.class);
+            case R.id.nav_selection_records:
+                intent = new Intent(this, SelectionRecords.class);
                 break;
             case R.id.nav_settings:
-                intent =new Intent(this,Settings.class);
+                intent = new Intent(this, Settings.class);
                 break;
             case R.id.nav_feedback:
-                intent =new Intent(this,Feedback.class);
+                intent = new Intent(this, Feedback.class);
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
@@ -273,10 +311,14 @@ public class Home extends AppCompatActivity
     }
 
     private void updateUI(){
-        tv_dUsedCredit.setText(Integer.toString(user.getDUsedCredit()));
-        tv_dLeftCredit.setText(Integer.toString(user.getDLeftCredit()));
-        tv_usedPoint.setText(Integer.toString(user.getUsedPoint()));
-        tv_leftPoint.setText(Integer.toString(user.getLeftPoint()));
+        tv_dUsedCredit.setText(String.format("%d",user.getDUsedCredit()));
+        tv_dLeftCredit.setText(String.format("%d",user.getDLeftCredit()));
+        tv_usedPoint.setText(String.format("%d",user.getUsedPoint()));
+        tv_leftPoint.setText(String.format("%d",user.getLeftPoint()));
+    }
+
+    private void makeToast(String msg) {
+        Toast.makeText(Home.this, msg, Toast.LENGTH_LONG).show();
     }
 
 }

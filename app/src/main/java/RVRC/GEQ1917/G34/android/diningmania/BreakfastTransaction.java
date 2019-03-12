@@ -5,12 +5,12 @@ import java.util.Date;
 public class BreakfastTransaction extends TransactionHistory{
     private static int total;
 
-    public BreakfastTransaction(String name, Date date){
+    BreakfastTransaction(String name, Date date){
         super(name, date);
         total++;
     }
 
-    public static int getTotal() {
+    static int getTotal() {
         return total;
     }
 }

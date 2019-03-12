@@ -73,7 +73,7 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
         if(!isSuccessful){
             scannerView.resumeCameraPreview(this);
         }else {
-            updateData(result);
+            updateFirebaseData(result);
         }
     }
 
@@ -90,7 +90,7 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
         scannerView.startCamera();
     }
 
-    public void updateData(String transactionName){
+    public void updateFirebaseData(String transactionName){
         mAuth = FirebaseAuth.getInstance();
         Log.i(TAG,"Got database reference for Users");
         currUserId = mAuth.getCurrentUser().getUid();
