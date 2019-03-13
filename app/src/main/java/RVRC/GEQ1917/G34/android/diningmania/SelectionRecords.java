@@ -24,7 +24,7 @@ public class SelectionRecords extends AppCompatActivity {
         mySQDatabase = new DatabaseHelper(this);
 
         ArrayList<String> recordList = new ArrayList<>();
-        Cursor data = mySQDatabase.getListContents();
+        Cursor data = mySQDatabase.getListContents(DatabaseHelper.TABLE_RECORDS);
 
         if(data.getCount() == 0) {
             Toast.makeText(this, "You haven't indicated anything :(", Toast.LENGTH_LONG);

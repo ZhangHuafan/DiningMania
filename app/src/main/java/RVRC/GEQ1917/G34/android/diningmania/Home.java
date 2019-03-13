@@ -42,6 +42,7 @@ import java.util.Map;
 import ViewHolder.MenuHolder;
 
 import static RVRC.GEQ1917.G34.android.diningmania.Login.filename;
+import static RVRC.GEQ1917.G34.android.diningmania.Utility.formatDate;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -69,7 +70,7 @@ public class Home extends AppCompatActivity
     SharedPreferences sp;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -140,10 +141,7 @@ public class Home extends AppCompatActivity
         loadMenu(formatDate(chosenDate));
     }
 
-    private String formatDate(Date dateObj) {
-        SimpleDateFormat dfDate = new SimpleDateFormat("dd_MM_yyyy");
-         return dfDate.format(chosenDate);
-    }
+
 
 
     @Override
@@ -189,8 +187,8 @@ public class Home extends AppCompatActivity
         return chosenDate.after(dueDate.getTime());
     }
 
-    private void addLocalDate(String date, String choice) {
-        boolean insertDate = mySQDatabase.addData(date, choice);
+    private void addLocalDate(String date, String indication) {
+        boolean insertDate = mySQDatabase.addRecord(date, indication);
         if(insertDate) {
             makeToast("Successfully record your choice!");
         } else {
@@ -225,9 +223,8 @@ public class Home extends AppCompatActivity
     public void showInfoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
         builder.setCancelable(true);
-        builder.setTitle("Indicate your choice earlier =)");
-        builder.setMessage("\nCaterers have already begun to prepare food." +
-                "You are not able to select food for current date.");
+        builder.setTitle("Caterers already began to prepare food =)");
+        builder.setMessage("\nYou are not able to select food for current date.");
         builder.setNeutralButton("Okay",
                 new DialogInterface.OnClickListener() {
                     @Override

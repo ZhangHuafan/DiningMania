@@ -20,7 +20,7 @@ import java.util.Stack;
  *          > breakfast; > dinner; > points
  */
 
-public class User{
+public class User implements Serializable{
 
     private static final int TOTAL_CREDIT = 6;
 

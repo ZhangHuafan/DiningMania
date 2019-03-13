@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DialogTitle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -28,6 +27,8 @@ import java.util.Map;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static RVRC.GEQ1917.G34.android.diningmania.Home.user;
+import static RVRC.GEQ1917.G34.android.diningmania.Utility.formatDate;
+import static RVRC.GEQ1917.G34.android.diningmania.Utility.formatTime;
 
 public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -37,6 +38,7 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
     private static DatabaseReference mDatabase;
     private static DatabaseReference currentUserRef;
     private static String currUserId;
+    private DatabaseHelper mySQDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,8 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
         if(!isSuccessful){
             scannerView.resumeCameraPreview(this);
         }else {
-            updateFirebaseData(result);
+            Date date = Calendar.getInstance().getTime();
+            processResult(date, result);
         }
     }
 
@@ -90,14 +93,16 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
         scannerView.startCamera();
     }
 
-    public void updateFirebaseData(String transactionName){
+    private void makeToast(String msg) {
+        Toast.makeText(Scan.this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    public void processResult(Date date, String transactionName){
         mAuth = FirebaseAuth.getInstance();
         Log.i(TAG,"Got database reference for Users");
         currUserId = mAuth.getCurrentUser().getUid();
         mDatabase= FirebaseDatabase.getInstance().getReference();
         currentUserRef = mDatabase.child("Users").child(currUserId);
-
-        Date date = Calendar.getInstance().getTime();
         String type;
         String chosenFood;
         Log.i(TAG, "updateData");
@@ -116,16 +121,25 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
             chosenFood = transactionName;
         }
         currentUserRef.setValue(user);
-        updateRecords(type, chosenFood, date);
-        generateReceipt(type, chosenFood, date);
+        addLocalDate(date, chosenFood);
+        updateCloudRecords(type, chosenFood, date);
+        showMatchingResult(type, chosenFood, date);
     }
 
-    private void updateRecords(String type, String food, Date date){
+    private void addLocalDate(Date date, String choice) {
+        mySQDatabase = new DatabaseHelper(this);
+        boolean insertDate = mySQDatabase.addTransaction(formatDate(date), formatTime(date), choice);
+        if(insertDate) {
+            makeToast("Successfully record your transaction!");
+        } else {
+            makeToast("Something went wrong. Please try again.");
+        }
+    }
 
-        SimpleDateFormat dfDate = new SimpleDateFormat("dd_MM_yyyy");
-        SimpleDateFormat dfTime = new SimpleDateFormat("HH:mm");
-        String formattedDate = dfDate.format(date);
-        String formattedTime = dfTime.format(date);
+    private void updateCloudRecords(String type, String food, Date date){
+
+        String formattedDate = formatDate(date);
+        String formattedTime = formatTime(date);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, String> record = new HashMap<>();
@@ -134,14 +148,11 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
                 SetOptions.merge());
     }
 
-    private void generateReceipt(String type, String food, Date date){
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yy\nHH:mm");
-        String dateAndTime = df.format(date);
+    private void showMatchingResult(String type, String food, Date date){
         SharedPreferences sp = getSharedPreferences("receipt info", MODE_PRIVATE);
-        sp.edit().putString("date", dateAndTime).apply();
-        sp.edit().putString("type", type).apply();
         sp.edit().putString("food", food).apply();
-        Intent goForReceipt = new Intent(Scan.this, Receipt.class);
-        startActivity(goForReceipt);
+        sp.edit().putString("date", formatDate(date)).apply();
+        Intent goForMatchingResult = new Intent(Scan.this, MatchingResult.class);
+        startActivity(goForMatchingResult);
     }
 }

@@ -48,7 +48,7 @@
         <activity android:name=".Notification"></activity>
         <activity android:name=".ShowTransaction"></activity>
         <activity android:name=".ReviewList"></activity>
-        <activity android:name=".Receipt"></activity>
+        <activity android:name=".MatchingResult"></activity>
 
         <service android:name=".FirebaseMessageService">
             <intent-filter>
