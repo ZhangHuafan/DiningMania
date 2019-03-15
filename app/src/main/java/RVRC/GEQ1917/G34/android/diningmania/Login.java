@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     protected static boolean isNewUser;
     private String emailId;
-    private String stuId;
+    protected static String stuId;
 
     private EditText et_email;
     private EditText et_password;
@@ -93,7 +93,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
                             Log.d(TAG, "email logged in: " + isNewUser + " " + emailId);
                             stuId = passwd;
-                            sp.edit().putString("studentId",stuId);
                             sp.edit().putBoolean(isLoggedIn,true).apply();
                             Intent goToMainPage = new Intent(Login.this, Home.class);
                             startActivity(goToMainPage);

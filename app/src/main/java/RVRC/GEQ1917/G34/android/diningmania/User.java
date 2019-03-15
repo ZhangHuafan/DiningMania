@@ -44,6 +44,9 @@ public class User implements Serializable{
         this.dLeftCredit = TOTAL_CREDIT;
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
     public int getBUsedCredit() {
         return bUsedCredit;
     }
@@ -99,6 +102,9 @@ public class User implements Serializable{
     }
     public void setDinnerIndications(Map<String, String> dinnerIndications) {
         this.dinnerIndications = dinnerIndications;
+    }
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public void addTransaction(TransactionHistory transaction){

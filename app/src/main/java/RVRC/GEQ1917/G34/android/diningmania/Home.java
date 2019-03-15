@@ -42,6 +42,7 @@ import java.util.Map;
 import ViewHolder.MenuHolder;
 
 import static RVRC.GEQ1917.G34.android.diningmania.Login.filename;
+import static RVRC.GEQ1917.G34.android.diningmania.Login.stuId;
 import static RVRC.GEQ1917.G34.android.diningmania.Utility.formatDate;
 
 public class Home extends AppCompatActivity
@@ -60,13 +61,13 @@ public class Home extends AppCompatActivity
     private Date chosenDate;
     public DatabaseHelper mySQDatabase;
 
+    protected static String studentId;
     protected static User user;
     protected static FirebaseAuth mAuth;
     protected static DatabaseReference mDatabase;
     protected static DatabaseReference userRef;
     protected static DatabaseReference dinnerChoice;
     protected static String currUserId;
-    protected static String studentId;
     SharedPreferences sp;
 
     @Override
@@ -117,12 +118,13 @@ public class Home extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.hasChild(currUserId)){
-                    studentId = sp.getString("studentId","A111");
+                    studentId = Login.stuId;
                     user = new User(studentId);
                     Log.i(TAG,"Create a new user object");
                     userRef.child(currUserId).setValue(user);
                 } else {
                     user = dataSnapshot.child(currUserId).getValue(User.class);
+                    studentId = user.getStudentId();
                     Log.d(TAG, "Got the user from Firebase database" + user);
                     updateUI();
                 }
@@ -140,9 +142,6 @@ public class Home extends AppCompatActivity
         recyclerMenu.setLayoutManager(layoutManager);
         loadMenu(formatDate(chosenDate));
     }
-
-
-
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

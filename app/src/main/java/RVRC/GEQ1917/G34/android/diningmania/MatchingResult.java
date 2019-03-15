@@ -25,7 +25,7 @@ public class MatchingResult extends AppCompatActivity {
             "However, you can also earn points by giving reviews ;)";
     private static final String MSG_NOT_INDICATES = "Try to indicate your choice next time!\n" +
             "However, you can also earn points by giving reviews ;)";
-    private static final int POINT_AMOUNT = 1;
+    protected static final int POINT_AMOUNT = 1;
     private static final int MATCHES = 1;
     private static final int NOT_MATCHES = 2;
     private static final int NOT_INDICATES = 3;

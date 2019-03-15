@@ -39,7 +39,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Login"></activity>
-        <activity android:name=".Review"></activity>
         <activity android:name=".Scan"></activity>
         <activity android:name=".SelectFood"></activity>
         <activity android:name=".Feedback"></activity>
@@ -47,7 +46,6 @@
         <activity android:name=".SelectionRecords"></activity>
         <activity android:name=".Notification"></activity>
         <activity android:name=".ShowTransaction"></activity>
-        <activity android:name=".ReviewList"></activity>
         <activity android:name=".MatchingResult"></activity>
 
         <service android:name=".FirebaseMessageService">
