@@ -86,9 +86,9 @@ public class ShowTransaction extends AppCompatActivity implements RatingDialogLi
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if(!dataSnapshot.exists()) {
                                 showReviewDialog(meal, date);
+                                addPoint();
                             } else {
                                 showInfoDialog();
-                                addPoint();
                             }
                         }
                         @Override
@@ -109,12 +109,12 @@ public class ShowTransaction extends AppCompatActivity implements RatingDialogLi
                 .setNumberOfStars(5)
                 .setDefaultRating(0)
                 .setTitle("Give feedback for " + meal)
-                .setDescription("We appreciate it if you can give detailed feedback")
-                .setDescriptionTextColor(R.color.colorPrimary)
+                .setDescription("We will appreciate it if you could give detailed feedback")
+                .setDescriptionTextColor(android.R.color.black)
                 .setHint("Write your comments here. e.g. The fish is salty; " +
                         "Need more sources for the noodles...")
-                .setHintTextColor(android.R.color.white)
-                .setCommentBackgroundColor(R.color.colorPrimaryDark)
+                .setHintTextColor(android.R.color.darker_gray)
+                .setCommentBackgroundColor(R.color.color1)
                 .setWindowAnimation(R.style.RatingDialogFadeAnim)
                 .create(this)
                 .show();

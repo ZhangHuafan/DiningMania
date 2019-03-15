@@ -15,24 +15,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#FFB74D"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
     <include
         android:id="@+id/include"
-        layout="@layout/content_home"
-        app:layout_anchor="@+id/home_b_calender"
-        app:layout_anchorGravity="bottom|center" />
-
-    <Button
-        android:id="@+id/home_b_calender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Calendar"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="top|center" />
+        layout="@layout/content_home" />
 
 
 </android.support.design.widget.CoordinatorLayout>

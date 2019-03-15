@@ -11,7 +11,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static String TAG = "DatabaseHelper";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
     static final String DATABASE_NAME = "myDatabase";
     static final String TABLE_RECORDS = "indications";
     static final String TABLE_TRANSACTIONS = "transactions";
@@ -32,8 +32,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             KEY_CHOSEN_FOOD + " TEXT );";
     private static final String CREATE_TABLE_REVIEW = "CREATE TABLE " +
             TABLE_REVIEW + "(" +
-            KEY_DATE + " TEXT," +
-            KEY_CHOSEN_FOOD + "TEXT," +
+            KEY_DATE + " TEXT PRIMARY KEY," +
+            KEY_CHOSEN_FOOD + " TEXT," +
             KEY_CONTENT + " TEXT );";
 
 

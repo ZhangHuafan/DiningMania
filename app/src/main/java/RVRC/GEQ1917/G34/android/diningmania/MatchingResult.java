@@ -19,11 +19,11 @@ import static RVRC.GEQ1917.G34.android.diningmania.Utility.formatDate;
 
 public class MatchingResult extends AppCompatActivity {
 
-    private static final String MSG_MATCHES = "Thanks for following up your choice!\n" +
+    private static final String MSG_MATCHES = "Thanks for following up your choice! " +
             "One point has been credited to you ;)";
-    private static final String MSG_NOT_MATCHES = "Try to follow up your choice next time!\n" +
+    private static final String MSG_NOT_MATCHES = "Try to follow up your choice next time! " +
             "However, you can also earn points by giving reviews ;)";
-    private static final String MSG_NOT_INDICATES = "Try to indicate your choice next time!\n" +
+    private static final String MSG_NOT_INDICATES = "Try to indicate your choice next time! " +
             "However, you can also earn points by giving reviews ;)";
     protected static final int POINT_AMOUNT = 1;
     private static final int MATCHES = 1;

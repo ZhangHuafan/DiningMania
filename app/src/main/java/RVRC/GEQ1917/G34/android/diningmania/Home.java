@@ -151,6 +151,7 @@ public class Home extends AppCompatActivity
         chosenCalendar.set(Calendar.MONTH,month);
         chosenCalendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         chosenDate = chosenCalendar.getTime();
+        b_calendar.setText(formatDate(chosenDate));
         loadMenu(formatDate(chosenDate));
     }
 
@@ -284,7 +285,8 @@ public class Home extends AppCompatActivity
                         hasScanned = true;
                     }
                 }
-                if (hasScanned) {
+                //if (hasScanned) {
+                if (false) {
                     showInfoDialog("Unable to scan",
                             "\nYou have already scanned for today's meal");
                 } else {
@@ -310,6 +312,7 @@ public class Home extends AppCompatActivity
                 Log.i(TAG,"Write isLogged in: " + sp.getBoolean("isLoggedIn",false));
                 intent = new Intent(this,Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 break;
             default:
                 Log.e(TAG,"Cannot find correct view Id");
