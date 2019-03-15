@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -172,7 +173,8 @@ public class Home extends AppCompatActivity
                             showConfirmationDialog(date, clickItem.getChoice());
 
                         } else {
-                            showInfoDialog();
+                            showInfoDialog("Food has already been prepared =)",
+                                    "\nYou are not able to select food for current date.");
                         }
                     }
                 });
@@ -221,11 +223,11 @@ public class Home extends AppCompatActivity
         dialog.show();
     }
 
-    public void showInfoDialog() {
+    public void showInfoDialog(String title, String msg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
         builder.setCancelable(true);
-        builder.setTitle("Food has already been prepared =)");
-        builder.setMessage("\nYou are not able to select food for current date.");
+        builder.setTitle(title);
+        builder.setMessage(msg);
         builder.setNeutralButton("Okay",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -274,20 +276,33 @@ public class Home extends AppCompatActivity
 
         switch (item.getItemId()){
             case R.id.nav_scan:
-                intent = new Intent(this, Scan.class);
+                boolean hasScanned = false;
+                Cursor data = mySQDatabase.getListContents(DatabaseHelper.TABLE_TRANSACTIONS);
+                while (data.moveToNext()) {
+                    if(data.getString(0).equals(formatDate(Calendar.getInstance().getTime()))) {
+                        String date = data.getString(0);
+                        hasScanned = true;
+                    }
+                }
+                if (hasScanned) {
+                    showInfoDialog("Unable to scan",
+                            "\nYou have already scanned for today's meal");
+                } else {
+                    startActivity(new Intent(this, Scan.class));
+                }
                 Log.d(TAG,"Go to scan class");
                 break;
             case R.id.nav_transaction:
-                intent = new Intent(this, ShowTransaction.class);
+                startActivity(new Intent(this, ShowTransaction.class));
                 break;
             case R.id.nav_notification:
-                intent = new Intent(this, Notification.class);
+                startActivity(new Intent(this, Notification.class));
                 break;
             case R.id.nav_selection_records:
-                intent = new Intent(this, SelectionRecords.class);
+                startActivity(new Intent(this, SelectionRecords.class));
                 break;
             case R.id.nav_feedback:
-                intent = new Intent(this, Feedback.class);
+                startActivity(new Intent(this, Feedback.class));
                 break;
             case R.id.nav_logout:
                 mAuth.signOut();
@@ -297,11 +312,10 @@ public class Home extends AppCompatActivity
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 break;
             default:
-                intent = null;
                 Log.e(TAG,"Cannot find correct view Id");
         }
 
-        startActivity(intent);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
