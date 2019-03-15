@@ -19,7 +19,7 @@
             android:icon="@drawable/ic_history_black_24dp"/>
         <item
             android:id="@+id/nav_feedback"
-            android:title="Review"
+            android:title="Feedback"
             android:icon="@drawable/ic_rate_review_black_24dp"/>
         <item
             android:id="@+id/nav_notification"

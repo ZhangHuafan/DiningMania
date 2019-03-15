@@ -46,6 +46,9 @@ public class ShowTransaction extends AppCompatActivity implements RatingDialogLi
     private static DatabaseReference currentUserRef;
     private static String currUserId;
 
+    private String date;
+    private String meal;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,8 +77,8 @@ public class ShowTransaction extends AppCompatActivity implements RatingDialogLi
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     TextView textView = (TextView) view;
-                    final String meal = textView.getText().toString().split("\n")[1];
-                    final String date = textView.getText().toString().split("\n")[0].substring(0,10);
+                    date = textView.getText().toString().split("\n")[0].substring(0,10);
+                    meal = textView.getText().toString().split("\n")[1];
                     reviews = firebaseDatabase.getReference("Dinner Reviews").child(date).child(meal)
                             .child(studentId);
                     reviews.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -135,6 +138,7 @@ public class ShowTransaction extends AppCompatActivity implements RatingDialogLi
     @Override
     public void onPositiveButtonClicked(int value, @NotNull String comment) {
         reviews.child(Integer.toString(value)).setValue(comment);
+        mySQDatabase.addReview(date, meal, comment);
         Toast.makeText(this,"Thanks for you comments! One point has been credited to " +
                 "you!", Toast.LENGTH_LONG).show();
     }

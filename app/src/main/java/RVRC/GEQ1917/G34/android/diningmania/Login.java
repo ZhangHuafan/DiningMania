@@ -26,6 +26,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     protected static final String isLoggedIn = "isLoggedIn";
     private static final String TAG = "Login";
 
+
     protected static boolean isNewUser;
     private String emailId;
     protected static String stuId;

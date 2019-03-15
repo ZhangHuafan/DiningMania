@@ -15,16 +15,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     static final String DATABASE_NAME = "myDatabase";
     static final String TABLE_RECORDS = "indications";
     static final String TABLE_TRANSACTIONS = "transactions";
-    static final String TABLE_POINTS_EARNING= "points_earning";
-    static final String TABLE_REVIEW = "review";
-    static final String KEY_POINT_ID = "point_id";
-    static final String KEY_REVIEW_ID = "review_id";
+    static final String TABLE_REVIEW = "feedback";
     static final String KEY_DATE = "date";
     static final String KEY_INDICATION = "indication";
     static final String KEY_CHOSEN_FOOD = "chosen_food";
     static final String KEY_TIME = "time";
-    static final String KEY_POINT_CHANGE = "point_change";
-    static final String KEY_REMARK = "remark";
     static final String KEY_CONTENT = "content";
 
     private static final String CREATE_TABLE_RECORDS = "CREATE TABLE "
@@ -35,15 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             KEY_DATE + " TEXT PRIMARY KEY," +
             KEY_TIME + " TEXT," +
             KEY_CHOSEN_FOOD + " TEXT );";
-    private static final String CREATE_TABLE_POINTS_EARNING = "CREATE TABLE " +
-            TABLE_POINTS_EARNING + "(" +
-            KEY_POINT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            KEY_DATE + " TEXT," +
-            KEY_POINT_CHANGE + " INTEGER," +
-            KEY_REMARK + " TEXT );";
     private static final String CREATE_TABLE_REVIEW = "CREATE TABLE " +
             TABLE_REVIEW + "(" +
-            KEY_REVIEW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             KEY_DATE + " TEXT," +
             KEY_CHOSEN_FOOD + "TEXT," +
             KEY_CONTENT + " TEXT );";
@@ -57,7 +45,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_RECORDS);
         db.execSQL(CREATE_TABLE_TRANSACTIONS);
-        db.execSQL(CREATE_TABLE_POINTS_EARNING);
         db.execSQL(CREATE_TABLE_REVIEW);
     }
 
@@ -65,7 +52,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECORDS);
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_TRANSACTIONS + "'");
-        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_POINTS_EARNING + "'");
         db.execSQL("DROP TABLE IF EXISTS '" + TABLE_REVIEW + "'");
         onCreate(db);
     }
@@ -93,17 +79,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public boolean addPointEarning(String date, int pointChange, String remark) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(KEY_DATE, date);
-        contentValues.put(KEY_POINT_CHANGE, pointChange);
-        contentValues.put(KEY_REMARK, remark);
-
-        long result = db.insertWithOnConflict(TABLE_POINTS_EARNING, null, contentValues,
-                SQLiteDatabase.CONFLICT_REPLACE);
-        return result != -1;
-    }
 
     public boolean addReview(String date, String chosenFood, String content) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -126,9 +101,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             case TABLE_TRANSACTIONS:
                 data = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS, null);
-                break;
-            case TABLE_POINTS_EARNING:
-                data = db.rawQuery("SELECT * FROM " + TABLE_POINTS_EARNING, null);
                 break;
             case TABLE_REVIEW:
                 data = db.rawQuery("SELECT * FROM " + TABLE_REVIEW, null);
