@@ -42,6 +42,7 @@ public class Scan extends AppCompatActivity implements ZXingScannerView.ResultHa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG,"opening camera");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
 

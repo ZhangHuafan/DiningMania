@@ -58,15 +58,15 @@ public class Home extends AppCompatActivity
     private RecyclerView recyclerMenu;
     private RecyclerView.LayoutManager layoutManager;
     private Date chosenDate;
-    private DatabaseHelper mySQDatabase;
+    public DatabaseHelper mySQDatabase;
 
     protected static User user;
-    private static FirebaseAuth mAuth;
-    private static DatabaseReference mDatabase;
-    private static DatabaseReference userRef;
-    private static DatabaseReference dinnerChoice;
-    private static String currUserId;
-    private static String studentId;
+    protected static FirebaseAuth mAuth;
+    protected static DatabaseReference mDatabase;
+    protected static DatabaseReference userRef;
+    protected static DatabaseReference dinnerChoice;
+    protected static String currUserId;
+    protected static String studentId;
     SharedPreferences sp;
 
     @Override
@@ -168,8 +168,10 @@ public class Home extends AppCompatActivity
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        if (canAcceptChange()) {
+                        //if (canAcceptChange()) {
+                        if (true) {
                             showConfirmationDialog(date, clickItem.getChoice());
+
                         } else {
                             showInfoDialog();
                         }
@@ -223,7 +225,7 @@ public class Home extends AppCompatActivity
     public void showInfoDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
         builder.setCancelable(true);
-        builder.setTitle("Caterers already began to prepare food =)");
+        builder.setTitle("Food has already been prepared =)");
         builder.setMessage("\nYou are not able to select food for current date.");
         builder.setNeutralButton("Okay",
                 new DialogInterface.OnClickListener() {
@@ -274,6 +276,8 @@ public class Home extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.nav_scan:
                 intent = new Intent(this, Scan.class);
+                Log.d(TAG,"Go to scan class");
+                break;
             case R.id.nav_transaction:
                 intent = new Intent(this, ShowTransaction.class);
                 break;
@@ -282,9 +286,6 @@ public class Home extends AppCompatActivity
                 break;
             case R.id.nav_selection_records:
                 intent = new Intent(this, SelectionRecords.class);
-                break;
-            case R.id.nav_settings:
-                intent = new Intent(this, Settings.class);
                 break;
             case R.id.nav_feedback:
                 intent = new Intent(this, Feedback.class);

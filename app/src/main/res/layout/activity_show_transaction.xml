@@ -7,7 +7,7 @@
     tools:context=".ShowTransaction">
 
     <ListView
-        android:id="@+id/transaction_lv_container"
+        android:id="@+id/lv_transactions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
 

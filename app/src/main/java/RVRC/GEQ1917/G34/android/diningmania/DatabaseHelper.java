@@ -5,8 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static String TAG = "DatabaseHelper";
+
     private static final int DATABASE_VERSION = 1;
     static final String DATABASE_NAME = "myDatabase";
     static final String TABLE_RECORDS = "indications";
@@ -71,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(KEY_DATE, date);
         contentValues.put(KEY_INDICATION, indication);
-
+        Log.d(TAG, "Added records!");
         long result = db.insertWithOnConflict(TABLE_RECORDS, null, contentValues,
                 SQLiteDatabase.CONFLICT_REPLACE);
         return result != -1;
@@ -114,17 +118,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getListContents(String tableName) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor data = null;
         switch (tableName) {
             case TABLE_RECORDS:
                 data = db.rawQuery("SELECT * FROM " + TABLE_RECORDS, null);
+                break;
             case TABLE_TRANSACTIONS:
                 data = db.rawQuery("SELECT * FROM " + TABLE_TRANSACTIONS, null);
+                break;
             case TABLE_POINTS_EARNING:
                 data = db.rawQuery("SELECT * FROM " + TABLE_POINTS_EARNING, null);
+                break;
             case TABLE_REVIEW:
                 data = db.rawQuery("SELECT * FROM " + TABLE_REVIEW, null);
+                break;
         }
 
         return data;
