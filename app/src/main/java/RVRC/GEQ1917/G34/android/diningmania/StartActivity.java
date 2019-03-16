@@ -46,7 +46,7 @@ public class StartActivity extends AppCompatActivity {
         if (loggedIn) {
             intent = new Intent(this, Home.class);
         } else {
-            intent = new Intent(this, Login.class);
+            intent = new Intent(this, WelcomePage.class);
         }
         startActivity(intent);
         finish();

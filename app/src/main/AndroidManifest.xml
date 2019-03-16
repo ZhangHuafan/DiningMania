@@ -37,7 +37,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".WelcomePage"></activity>
         <activity android:name=".Login"></activity>
+        <activity android:name=".SignUp"></activity>
         <activity android:name=".Scan"></activity>
         <activity android:name=".Feedback"></activity>
         <activity android:name=".Settings"></activity>

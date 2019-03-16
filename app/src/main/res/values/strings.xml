@@ -26,5 +26,6 @@
     <string name="used_point">Used Point</string>
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+    <string name="message">Hi! Thanks for using Dining Mania. Please register or login in using your email address and Matrix card number and read the instructions carefully. 1) You can indicate your meal choice by click on menu items at least one day before consuming the meal. 2) When you take the meal, please scan the QR code at the according counter. 3) If what you have indicated matches what you have scanned, one point will be credited to you. 4) You can also write reviews to earn one point per feedback. 5) You can only scan once per day. 6) In the end of this week, you will receive notification to redeem some gits if you have enough points. Let us start!</string>
 
 </resources>

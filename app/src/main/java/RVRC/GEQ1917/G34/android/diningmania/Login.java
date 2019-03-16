@@ -104,7 +104,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
                         } else {
                             Log.d(TAG, "email failed to log in: " + emailId);
-                            Toast.makeText(Login.this, "Invalid Email or Password",
+                            b_progress.setVisibility(View.INVISIBLE);
+                            Toast.makeText(Login.this, "Invalid email or password",
                                     Toast.LENGTH_LONG).show();
                         }
                     }

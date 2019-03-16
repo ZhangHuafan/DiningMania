@@ -48,9 +48,9 @@ public class MatchingResult extends AppCompatActivity {
         im_matching_result = findViewById(R.id.matchingResult_im_msg);
         mySQDatabase = new DatabaseHelper(this);
 
-        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
-        }
+        //if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+        //    getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        //}
 
         SharedPreferences sp = getSharedPreferences("receipt info", MODE_PRIVATE);
         String chosenFood = sp.getString("food","Food");
