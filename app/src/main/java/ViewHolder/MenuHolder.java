@@ -13,7 +13,6 @@ public class MenuHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     public TextView tv_choice;
     public TextView tv_content;
-    public ImageView iv_foodImage;
 
     private ItemClickListener itemClickListener;
 
@@ -21,7 +20,6 @@ public class MenuHolder extends RecyclerView.ViewHolder implements View.OnClickL
         super(itemView);
         tv_choice = itemView.findViewById(R.id.tv_food_choice);
         tv_content = itemView.findViewById(R.id.tv_food_content);
-        iv_foodImage = itemView.findViewById(R.id.iv_food_choice_background);
         itemView.setOnClickListener(this);
     }
 

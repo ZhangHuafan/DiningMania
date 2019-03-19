@@ -68,7 +68,7 @@ public class SignUp extends AppCompatActivity {
                     });
                 } else {
                     Toast.makeText(SignUp.this, "Please enter correct email address " +
-                            "and Matrix number", Toast.LENGTH_LONG);
+                            "and Matrix number. Or you have already signed up", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -83,7 +83,8 @@ public class SignUp extends AppCompatActivity {
         Pattern pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
         if (email == null)
             return false;
-
-        return pattern.matcher(email).matches();
+        String check = "@u.nus.edu";
+        String emailPostFix = email.substring(email.length()-check.length(),email.length());
+        return pattern.matcher(email).matches() && check == emailPostFix;
     }
 }

@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="21dp"
         android:ems="10"
-        android:hint="Matrix Number"
+        android:hint="Matric Number"
         android:inputType="text"
         app:layout_constraintBottom_toTopOf="@+id/signUp_b_sign_up"
         app:layout_constraintStart_toStartOf="@+id/signUp_tv_user_email"

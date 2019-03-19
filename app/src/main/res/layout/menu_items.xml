@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="220dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
     android:layout_marginBottom="8dp"
@@ -18,13 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/food_choice_western" />
+            android:src="#FFB74D" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="#90E65100" />
 
         <TextView
             android:id="@+id/tv_food_choice"
@@ -33,7 +28,6 @@
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="Western"
-            android:textColor="@android:color/white"
             android:textSize="24sp" />
 
         <View
@@ -42,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/tv_food_choice"
-            android:background="#ffffff" />
+            android:background="@android:color/black" />
 
         <TextView
             android:id="@+id/tv_food_content"
@@ -54,8 +48,7 @@
             android:layout_marginTop="0dp"
             android:gravity="center"
             android:text="Western food"
-            android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 

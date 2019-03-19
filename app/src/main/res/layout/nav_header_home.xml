@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="#30F57F17"
+    android:background="#50FFB74D"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -12,7 +12,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-    <!--TODO:Add a background here-->
+    <!--TODO:Add a background here; can scan one; can change before one day-->
 
     <TextView
         android:id="@+id/textView"
@@ -22,7 +22,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="Dinner Used Credit"
         android:textSize="14sp" />
 
@@ -34,7 +34,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="60dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="Dinner Left Credit"
         android:textSize="14sp" />
 
@@ -46,7 +46,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="30dp"
         android:layout_marginBottom="30dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="Used Point"
         android:textSize="14sp" />
 
@@ -58,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="120dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="Left Point"
         android:textSize="14sp" />
 
@@ -70,7 +70,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="TextView"
         android:textSize="14sp" />
 
@@ -82,7 +82,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="30dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="TextView"
         android:textSize="14sp" />
 
@@ -94,7 +94,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="90dp"
         android:layout_marginEnd="30dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="TextView"
         android:textSize="14sp" />
 
@@ -106,7 +106,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="30dp"
         android:layout_marginTop="120dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:text="TextView"
         android:textSize="14sp" />
 

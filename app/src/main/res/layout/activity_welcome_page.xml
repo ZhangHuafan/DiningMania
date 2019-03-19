@@ -20,14 +20,14 @@
 
 
     <TextView
-        android:gravity="center"
+        android:gravity="left"
         android:padding="5dp"
         android:background="#99FF8F00"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/welcomePage_tv_msg"
         android:layout_width="300dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:layout_height="wrap_content" />
 
 
@@ -61,7 +61,7 @@
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
             android:background="#99FF8F00"
-            android:text="SING UP"
+            android:text="SIGN UP"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     </LinearLayout>

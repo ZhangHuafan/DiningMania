@@ -155,16 +155,20 @@ public class Home extends AppCompatActivity
         loadMenu(formatDate(chosenDate));
     }
 
+
     private void loadMenu(final String date) {
         FirebaseRecyclerAdapter<FoodChoice, MenuHolder> adapter = new FirebaseRecyclerAdapter<FoodChoice, MenuHolder>
                 (FoodChoice.class, R.layout.menu_items, MenuHolder.class, dinnerChoice) {
             @Override
             protected void populateViewHolder(MenuHolder viewHolder, FoodChoice model, int position) {
                 viewHolder.tv_choice.setText(model.getChoice());
-                viewHolder.tv_content.setText(model.getDaily_menu().get(date));
-                Log.d(TAG, "Got url for images " + model.getImage());
-                viewHolder.iv_foodImage.setImageResource(R.drawable.food_choice_western);
-                //Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.iv_foodImage);
+                String menuContent = model.getDaily_menu().get(date);
+                if(menuContent != null) {
+                    viewHolder.tv_content.setText(textFormat(menuContent));
+                } else {
+                    viewHolder.tv_content.setText("");
+                }
+
                 final FoodChoice clickItem = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
@@ -182,6 +186,10 @@ public class Home extends AppCompatActivity
             }
         };
         recyclerMenu.setAdapter(adapter);
+    }
+
+    private String textFormat(String rawString) {
+        return rawString.replaceAll("%","\n");
     }
 
     private boolean canAcceptChange() {
@@ -296,9 +304,6 @@ public class Home extends AppCompatActivity
                 break;
             case R.id.nav_transaction:
                 startActivity(new Intent(this, ShowTransaction.class));
-                break;
-            case R.id.nav_notification:
-                startActivity(new Intent(this, Notification.class));
                 break;
             case R.id.nav_selection_records:
                 startActivity(new Intent(this, SelectionRecords.class));
