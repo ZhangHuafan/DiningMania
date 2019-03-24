@@ -14,15 +14,19 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
     <!--TODO:Add a background here; can scan one; can change before one day-->
 
+    <LinearLayout
+        android:id="@+id/col1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:orientation="vertical">
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
         android:textColor="@android:color/black"
+        android:layout_weight="1"
         android:text="Dinner Used Credit"
         android:textSize="14sp" />
 
@@ -30,84 +34,57 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="60dp"
         android:textColor="@android:color/black"
         android:text="Dinner Left Credit"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="30dp"
-        android:textColor="@android:color/black"
-        android:text="Used Point"
+        android:layout_weight="1"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="120dp"
         android:textColor="@android:color/black"
-        android:text="Left Point"
+        android:text="Point Earned"
+        android:layout_weight="1"
         android:textSize="14sp" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/nav_tv_dUsedCredit"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:textColor="@android:color/black"
-        android:text="TextView"
-        android:textSize="14sp" />
+        android:layout_toRightOf="@id/col1"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/nav_tv_dLeftCredit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="30dp"
-        android:textColor="@android:color/black"
-        android:text="TextView"
-        android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/nav_tv_usedPoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="30dp"
-        android:textColor="@android:color/black"
-        android:text="TextView"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/nav_tv_dUsedCredit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/nav_tv_leftPoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="120dp"
-        android:textColor="@android:color/black"
-        android:text="TextView"
-        android:textSize="14sp" />
+        <TextView
+            android:id="@+id/nav_tv_dLeftCredit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/nav_tv_leftPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
+    </LinearLayout>>
 
 </RelativeLayout>

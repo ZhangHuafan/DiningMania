@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,49 +11,46 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         app:srcCompat="@drawable/diningmanialogo" />
 
-    <EditText
-        android:id="@+id/signUp_tv_password"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
-        android:ems="10"
-        android:hint="Matric Number"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/signUp_b_sign_up"
-        app:layout_constraintStart_toStartOf="@+id/signUp_tv_user_email"
-        app:layout_constraintTop_toBottomOf="@+id/signUp_tv_user_email" />
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/signUp_tv_user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="389dp"
-        android:layout_marginBottom="17dp"
-        android:ems="10"
-        android:hint="email@u.nus.edu"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/signUp_tv_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/signUp_tv_user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:hint="eXXXXXXX@u.nus.edu"
+            android:inputType="textEmailAddress" />
 
-    <Button
-        android:id="@+id/signUp_b_sign_up"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="211dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="169dp"
-        android:background="@drawable/rounded_button"
-        android:text="SIGN UP"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUp_tv_password" />
+        <EditText
+            android:id="@+id/signUp_tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:ems="10"
+            android:hint="Matriculation Number"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/signUp_b_sign_up"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="211dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/rounded_button"
+            android:text="Sign Up" />
+
+    </LinearLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -4,7 +4,7 @@
     android:layout_height="220dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="10dp"
     card_view:cardPreventCornerOverlap="true"
     card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="50dp">
@@ -18,21 +18,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="#FFB74D" />
+            android:src="@drawable/background_choice1" />
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="#90FFB74D" />
 
 
         <TextView
             android:id="@+id/tv_food_choice"
+            android:fontFamily="@font/title"
+            android:fontFeatureSettings="bold"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="Western"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
         <View
             android:id="@+id/line"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/tv_food_choice"

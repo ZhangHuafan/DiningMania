@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">DiningMania</string>
+    <string name="icon">R.drawable.card_background</string>
     <string name="todo">TODO</string>
     <string name="loginUser">Login</string>
     <string name="logoDiningMania">logoDiningMania</string>
